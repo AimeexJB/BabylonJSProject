@@ -34,12 +34,10 @@ window.addEventListener('DOMContentLoaded', function(){
     skyboxMaterial.disableLighting = true;
     skybox.material = skyboxMaterial;
 
-    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/skybox", scene);
+    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("public/3", scene);
     skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
 
     skybox.renderingGroupId = 0;
-
-    // Some other mesh
     box.renderingGroupId = 1;
 
     return scene;
