@@ -38,14 +38,26 @@ window.addEventListener('DOMContentLoaded', function(){
             box.position.y = (Math.random()* 40) - 20;
             box.position.z = (Math.random()* 40) - 20;
         }
+        var mat = new BABYLON.StandardMaterial("mat", scene);
+	      mat.diffuseColor = BABYLON.Color3.Blue();
+
         box.isPickable = true;
+        scene.constantlyUpdateMeshUnderPointer = true;
+        scene.onPointerMove = function (evt, pickingInfo) {
+      		scene.meshes.forEach(function (m) {
+      			m.material = null;
+      		});
+      		if (pickingInfo.pickedMesh) {
+      			pickingInfo.pickedMesh.material = mat;
+      		}
+      	}
 
         //--------------------------Loading the Background Image--------------------------//
-        var mat = new BABYLON.StandardMaterial("contain", scene);
-            mat.diffuseTexture = new BABYLON.Texture("public/grid.png", scene);
-            mat.backFaceCulling = false;
+        var mat2 = new BABYLON.StandardMaterial("contain", scene);
+            mat2.diffuseTexture = new BABYLON.Texture("public/grid.png", scene);
+            mat2.backFaceCulling = false;
         var containBox = BABYLON.Mesh.CreateBox("box2", 200.0, scene);
-            containBox.material = mat;
+            containBox.material = mat2;
 
         return scene;
     }
