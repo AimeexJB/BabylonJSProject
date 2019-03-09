@@ -1,5 +1,9 @@
 var canvas, engine;
-var scene, camera, createScene;
+var scene, camera, createScene, box;
+
+var  mouse, INTERSECTED, raycaster, selectedObject;
+
+var objects = [];
 
 window.addEventListener('DOMContentLoaded', function(){
 
@@ -33,13 +37,17 @@ window.addEventListener('DOMContentLoaded', function(){
 
         //--------------------------Adding the Cubes to the Scene--------------------------//
         for( var i = 0; i < 300; i++) {
-            var box = BABYLON.Mesh.CreateBox('box1', 1, scene);
+            box = BABYLON.Mesh.CreateBox('box1', 1, scene);
             box.position.x = (Math.random()* 40) - 20;
             box.position.y = (Math.random()* 40) - 20;
             box.position.z = (Math.random()* 40) - 20;
+
+            objects.push( box );
         }
+
+
         var mat = new BABYLON.StandardMaterial("mat", scene);
-	      mat.diffuseColor = BABYLON.Color3.Blue();
+	        mat.diffuseColor = BABYLON.Color3.Blue();
 
         box.isPickable = true;
         scene.constantlyUpdateMeshUnderPointer = true;
@@ -53,7 +61,7 @@ window.addEventListener('DOMContentLoaded', function(){
       	}
 
         //--------------------------Loading the Background Image--------------------------//
-        var mat2 = new BABYLON.StandardMaterial("contain", scene);
+        var mat2 = new BABYLON.StandardMaterial("containBox", scene);
             mat2.diffuseTexture = new BABYLON.Texture("public/grid.png", scene);
             mat2.backFaceCulling = false;
         var containBox = BABYLON.Mesh.CreateBox("box2", 200.0, scene);
