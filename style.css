@@ -1,0 +1,30 @@
+
+body{
+    margin: 0;
+}
+
+
+.modal {
+    /* background-color: rgb(206, 197, 215); */
+    background-color: rgb(236, 230, 242);
+
+    width: 500px;
+    height: 400px;
+    position: absolute;
+
+    top: 100px;
+
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+
+    text-align: center;
+
+    display:block;
+    border-radius: 15px;
+}
+
+#myAudio {
+    margin-left: 100px;
+}
