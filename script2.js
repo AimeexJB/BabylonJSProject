@@ -36,7 +36,7 @@ window.addEventListener('DOMContentLoaded', function(){
         var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0,1,0), scene);
 
         //--------------------------Adding the Cubes to the Scene--------------------------//
-        for( var i = 0; i < 300; i++) {
+        for( var i = 0; i < 20; i++) {
             box = BABYLON.Mesh.CreateBox('box1', 1, scene);
             box.position.x = (Math.random()* 40) - 20;
             box.position.y = (Math.random()* 40) - 20;
@@ -45,20 +45,45 @@ window.addEventListener('DOMContentLoaded', function(){
             objects.push( box );
         }
 
+        // box.isPickable = true;
 
         var mat = new BABYLON.StandardMaterial("mat", scene);
-	        mat.diffuseColor = BABYLON.Color3.Blue();
+        box.material = mat;
 
-        box.isPickable = true;
-        scene.constantlyUpdateMeshUnderPointer = true;
-        scene.onPointerMove = function (evt, pickingInfo) {
-      		scene.meshes.forEach(function (m) {
-      			m.material = null;
-      		});
-      		if (pickingInfo.pickedMesh) {
-      			pickingInfo.pickedMesh.material = mat;
-      		}
-      	}
+        //--------------------------Making box selectable--------------------------//
+
+        var actionManager = new BABYLON.ActionManager(scene);
+        box.actionManager = actionManager;
+        
+        actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger,
+                () => mat.diffuseColor = BABYLON.Color3.Random()
+            )
+        );
+
+        //--------------------------adding in DIVs--------------------------//
+
+        var div = document.createElement("div");
+        div.style.backgroundColor = "yellow";
+        div.style.position = "absolute";
+        div.style.width = "200px";
+        div.style.height = "200px";
+        div.style.top = "50%";
+        div.style.left = "50%";
+        div.style.transform = "translate(-50%, -50%)";
+        div.style.display = "none";
+        document.body.appendChild(div);
+
+        div.addEventListener("click", () => div.style.display = "none");
+
+        var actionSphere = new BABYLON.ActionManager(scene);
+        box.actionManager = actionSphere;
+
+        actionSphere.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger,
+                () => div.style.display = "block"
+            )
+        );
 
         //--------------------------Loading the Background Image--------------------------//
         var mat2 = new BABYLON.StandardMaterial("containBox", scene);
