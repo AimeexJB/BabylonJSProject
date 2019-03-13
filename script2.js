@@ -59,21 +59,46 @@ window.addEventListener('DOMContentLoaded', function(){
 
         //--------------------------Adding the Cubes to the Scene--------------------------//
         for( var i = 0; i < 10; i++) {
-            box = BABYLON.Mesh.CreateBox('box1', 1, scene);
+            box = BABYLON.Mesh.CreateBox(i, 1, scene);
             box.position.x = (Math.random()* 40) - 20;
             box.position.y = (Math.random()* 40) - 20;
             box.position.z = (Math.random()* 40) - 20;
 
             objects.push( box );
+
+			box.isPickable = true;
+
+	        var mat = new BABYLON.StandardMaterial("mat", scene);
+	        box.material = mat;
+
+	        var actionManager = new BABYLON.ActionManager(scene);
+	        box.actionManager = actionManager;
+
+			//--------------------------adding in DIVs--------------------------//
+			var boxinfo = document.createElement( 'div' );
+			var songTitle = document.createElement( 'h3' );
+			var songInfo = document.createElement( 'p' );
+				boxinfo.appendChild( songTitle );
+				boxinfo.appendChild( songInfo );
+				boxinfo.setAttribute("class", "modal");
+				boxinfo.style.color = 'black'
+	            boxinfo.style.display = "none";
+
+			document.body.appendChild( boxinfo );
+
+	        boxinfo.addEventListener("click", () => boxinfo.style.display = "none");
+
+			objects[0].name = "Hello"
+
+	        boxinfo.innerHTML = objects.id;
+
+	        actionManager.registerAction(
+	            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger,
+	                () => boxinfo.style.display = "block",
+	            )
+	        );
+
         }
-
-        box.isPickable = true;
-
-        var mat = new BABYLON.StandardMaterial("mat", scene);
-        box.material = mat;
-
-        var actionManager = new BABYLON.ActionManager(scene);
-        box.actionManager = actionManager;
 
         //--------------------------changing box colour--------------------------//
         // actionManager.registerAction(
@@ -82,27 +107,6 @@ window.addEventListener('DOMContentLoaded', function(){
         //     )
         // );
 
-        //--------------------------adding in DIVs--------------------------//
-        var boxinfo = document.createElement( 'div' );
-		var songTitle = document.createElement( 'h3' );
-		var songInfo = document.createElement( 'p' );
-			boxinfo.appendChild( songTitle );
-			boxinfo.appendChild( songInfo );
-			boxinfo.setAttribute("class", "modal");
-			boxinfo.style.color = 'black'
-            boxinfo.style.display = "none";
-
-		document.body.appendChild( boxinfo );
-
-        boxinfo.addEventListener("click", () => boxinfo.style.display = "none");
-
-        boxinfo.innerHTML = box.id;
-
-        actionManager.registerAction(
-            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger,
-                () => boxinfo.style.display = "block",
-            )
-        );
 
         //--------------------------Loading the Background Image--------------------------//
         var mat2 = new BABYLON.StandardMaterial("containBox", scene);
