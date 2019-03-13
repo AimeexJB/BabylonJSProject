@@ -112,7 +112,7 @@ window.addEventListener('DOMContentLoaded', function(){
         var mat2 = new BABYLON.StandardMaterial("containBox", scene);
             mat2.diffuseTexture = new BABYLON.Texture("public/grid.png", scene);
             mat2.backFaceCulling = false;
-			
+			 
         var containBox = BABYLON.Mesh.CreateBox("box2", 200.0, scene);
             containBox.material = mat2;
 
