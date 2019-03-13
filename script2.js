@@ -76,10 +76,10 @@ window.addEventListener('DOMContentLoaded', function(){
 
 			//--------------------------adding in DIVs--------------------------//
 			var boxinfo = document.createElement( 'div' );
-			var songTitle = document.createElement( 'h3' );
-			var songInfo = document.createElement( 'p' );
-				boxinfo.appendChild( songTitle );
-				boxinfo.appendChild( songInfo );
+			// var songTitle = document.createElement( 'h3' );
+			// var songInfo = document.createElement( 'p' );
+			// 	boxinfo.appendChild( songTitle );
+			// 	boxinfo.appendChild( songInfo );
 				boxinfo.setAttribute("class", "modal");
 				boxinfo.style.color = 'black'
 	            boxinfo.style.display = "none";
@@ -112,6 +112,7 @@ window.addEventListener('DOMContentLoaded', function(){
         var mat2 = new BABYLON.StandardMaterial("containBox", scene);
             mat2.diffuseTexture = new BABYLON.Texture("public/grid.png", scene);
             mat2.backFaceCulling = false;
+			
         var containBox = BABYLON.Mesh.CreateBox("box2", 200.0, scene);
             containBox.material = mat2;
 
