@@ -1,8 +1,6 @@
 var canvas, engine;
 var scene, camera, createScene, box;
 
-var  mouse, INTERSECTED, raycaster, selectedObject;
-
 var objects = [];
 
 var songs = [{"title": "Smells Like Teen Spirit - Nirvana", "source": "music/SmellsLikeTeenSpirit.mp3", "description": "10/10 would listen to"},
@@ -58,7 +56,7 @@ window.addEventListener('DOMContentLoaded', function(){
         var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0,1,0), scene);
 
         //--------------------------Adding the Cubes to the Scene--------------------------//
-        for( var i = 0; i < 10; i++) {
+        for( var i = 0; i < 300; i++) {
             box = BABYLON.Mesh.CreateBox(i, 1, scene);
             box.position.x = (Math.random()* 40) - 20;
             box.position.y = (Math.random()* 40) - 20;
@@ -66,6 +64,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
             objects.push( box );
 
+			//--------------------------Making the cubes clickable--------------------------//
 			box.isPickable = true;
 
 	        var mat = new BABYLON.StandardMaterial("mat", scene);
@@ -93,7 +92,8 @@ window.addEventListener('DOMContentLoaded', function(){
 	        boxinfo.innerHTML = objects.id;
 
 	        actionManager.registerAction(
-	            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger,
+	            new BABYLON.ExecuteCodeAction(
+					BABYLON.ActionManager.OnPickTrigger,
 	                () => boxinfo.style.display = "block",
 	            )
 	        );
@@ -112,7 +112,7 @@ window.addEventListener('DOMContentLoaded', function(){
         var mat2 = new BABYLON.StandardMaterial("containBox", scene);
             mat2.diffuseTexture = new BABYLON.Texture("public/grid.png", scene);
             mat2.backFaceCulling = false;
-			 
+
         var containBox = BABYLON.Mesh.CreateBox("box2", 200.0, scene);
             containBox.material = mat2;
 
