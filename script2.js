@@ -49,7 +49,7 @@ window.addEventListener('DOMContentLoaded', function(){
         	info.style.color = 'white'
         	info.style.width = '100%';
         	info.style.textAlign = 'center';
-        	info.innerHTML = 'Interactive Museum';
+        	info.innerHTML = 'BabylonJS';
     	container.appendChild( info );
 
         //--------------------------Adding The lighting effects--------------------------//
